@@ -1,6 +1,7 @@
 package com.example.smartpantrymanager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -30,6 +31,13 @@ public class AddEditIngredientActivity extends AppCompatActivity {
 
     // -1 means a new ingredient is being added
     private int ingredientId = -1;
+
+    // SharedPreferences settings
+    private static final String PREFS_NAME =
+            "SmartPantrySettings";
+
+    private static final String KEY_PREFERRED_UNIT =
+            "preferred_unit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +150,39 @@ public class AddEditIngredientActivity extends AppCompatActivity {
             if (expiry != null) {
                 etExpiryDate.setText(expiry);
             }
+
+        } else {
+
+            // Add mode
+            loadPreferredUnit();
+        }
+    }
+
+    /**
+     * Loads the preferred unit saved in Settings.
+     *
+     * The preferred unit is only applied when
+     * adding a new ingredient.
+     */
+    private void loadPreferredUnit() {
+
+        SharedPreferences preferences =
+                getSharedPreferences(
+                        PREFS_NAME,
+                        MODE_PRIVATE
+                );
+
+        String preferredUnit =
+                preferences.getString(
+                        KEY_PREFERRED_UNIT,
+                        ""
+                );
+
+        if (!preferredUnit.isEmpty()) {
+
+            etUnit.setText(
+                    preferredUnit
+            );
         }
     }
 
