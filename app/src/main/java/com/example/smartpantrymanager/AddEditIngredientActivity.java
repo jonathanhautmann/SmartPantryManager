@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+
 public class AddEditIngredientActivity extends AppCompatActivity {
 
     private EditText etIngredientName;
@@ -207,6 +211,21 @@ public class AddEditIngredientActivity extends AppCompatActivity {
             return;
         }
 
+        // Validate expiry date
+        if (!TextUtils.isEmpty(expiryDate)) {
+
+            if (!isValidExpiryDate(expiryDate)) {
+
+                etExpiryDate.setError(
+                        "Use format: dd MMMM yyyy"
+                );
+
+                etExpiryDate.requestFocus();
+
+                return;
+            }
+        }
+
         // Convert quantity to a number
         double quantity;
 
@@ -265,6 +284,33 @@ public class AddEditIngredientActivity extends AppCompatActivity {
         } else {
 
             updateIngredient(pantryItem);
+        }
+    }
+
+    /**
+     * Checks whether the expiry date follows
+     * the format dd MMMM yyyy.
+     */
+    private boolean isValidExpiryDate(
+            String expiryDate) {
+
+        SimpleDateFormat dateFormat =
+                new SimpleDateFormat(
+                        "dd MMMM yyyy",
+                        Locale.ENGLISH
+                );
+
+        dateFormat.setLenient(false);
+
+        try {
+
+            dateFormat.parse(expiryDate);
+
+            return true;
+
+        } catch (ParseException e) {
+
+            return false;
         }
     }
 
