@@ -3,6 +3,7 @@ package com.example.smartpantrymanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +16,7 @@ public class PantryActivity extends AppCompatActivity {
 
     private RecyclerView recyclerViewPantry;
     private Button btnAddIngredient;
+    private TextView tvEmptyPantry;
 
     private DatabaseHelper databaseHelper;
     private PantryAdapter pantryAdapter;
@@ -32,6 +34,9 @@ public class PantryActivity extends AppCompatActivity {
 
         btnAddIngredient =
                 findViewById(R.id.btnAddIngredient);
+
+        tvEmptyPantry =
+                findViewById(R.id.tvEmptyPantry);
 
         databaseHelper =
                 new DatabaseHelper(this);
@@ -75,6 +80,28 @@ public class PantryActivity extends AppCompatActivity {
         );
 
         pantryAdapter.notifyDataSetChanged();
+
+        // Show an appropriate message when the pantry is empty
+        if (pantryItems.isEmpty()) {
+
+            recyclerViewPantry.setVisibility(
+                    RecyclerView.GONE
+            );
+
+            tvEmptyPantry.setVisibility(
+                    TextView.VISIBLE
+            );
+
+        } else {
+
+            recyclerViewPantry.setVisibility(
+                    RecyclerView.VISIBLE
+            );
+
+            tvEmptyPantry.setVisibility(
+                    TextView.GONE
+            );
+        }
     }
 
     @Override
