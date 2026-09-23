@@ -58,6 +58,15 @@
             android:textSize="17sp"
             android:textColor="#444444" />
 
+        <Button
+            android:id="@+id/btnBackToRecipes"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="30dp"
+            android:text="Back to Recipes"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
     </LinearLayout>
 
 </ScrollView>
