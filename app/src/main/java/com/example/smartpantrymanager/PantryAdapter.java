@@ -109,6 +109,7 @@ public class PantryAdapter
                     );
         }
 
+        // EDIT INGREDIENT
         holder.btnEditIngredient.setOnClickListener(
                 v -> {
 
@@ -148,6 +149,7 @@ public class PantryAdapter
                 }
         );
 
+        // DELETE INGREDIENT
         holder.btnDeleteIngredient.setOnClickListener(
                 v -> {
 
@@ -162,17 +164,40 @@ public class PantryAdapter
                                         adapterPosition
                                 );
 
-                        databaseHelper.deletePantryItem(
-                                currentItem.getId()
-                        );
+                        new android.app.AlertDialog.Builder(
+                                holder.itemView.getContext()
+                        )
+                                .setTitle(
+                                        "Delete Ingredient"
+                                )
+                                .setMessage(
+                                        "Are you sure you want to delete "
+                                                + currentItem.getName()
+                                                + "?"
+                                )
+                                .setPositiveButton(
+                                        "Delete",
+                                        (dialog, which) -> {
 
-                        pantryItems.remove(
-                                adapterPosition
-                        );
+                                            databaseHelper
+                                                    .deletePantryItem(
+                                                            currentItem.getId()
+                                                    );
 
-                        notifyItemRemoved(
-                                adapterPosition
-                        );
+                                            pantryItems.remove(
+                                                    adapterPosition
+                                            );
+
+                                            notifyItemRemoved(
+                                                    adapterPosition
+                                            );
+                                        }
+                                )
+                                .setNegativeButton(
+                                        "Cancel",
+                                        null
+                                )
+                                .show();
                     }
                 }
         );
