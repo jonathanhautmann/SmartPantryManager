@@ -22,58 +22,51 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        databaseHelper =
-                new DatabaseHelper(this);
-
+        databaseHelper = new DatabaseHelper(this);
         databaseHelper.getWritableDatabase();
 
         EdgeToEdge.enable(this);
 
-        setContentView(
-                R.layout.activity_main
-        );
+        setContentView(R.layout.activity_main);
 
-        btnMyPantry =
-                findViewById(
-                        R.id.btnMyPantry
-                );
-
+        btnMyPantry = findViewById(R.id.btnMyPantry);
         btnSuggestedRecipes =
-                findViewById(
-                        R.id.btnSuggestedRecipes
-                );
-
+                findViewById(R.id.btnSuggestedRecipes);
         btnSettings =
-                findViewById(
-                        R.id.btnSettings
-                );
+                findViewById(R.id.btnSettings);
 
+        // Open My Pantry
         btnMyPantry.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    MainActivity.this,
-                    PantryActivity.class
-            );
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            PantryActivity.class
+                    );
 
             startActivity(intent);
         });
 
+        // Open Suggested Recipes
         btnSuggestedRecipes.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    MainActivity.this,
-                    SuggestedRecipesActivity.class
-            );
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            SuggestedRecipesActivity.class
+                    );
 
             startActivity(intent);
         });
 
+        // Open Settings
         btnSettings.setOnClickListener(v -> {
 
-            Intent intent = new Intent(
-                    MainActivity.this,
-                    SettingsActivity.class
-            );
+            Intent intent =
+                    new Intent(
+                            MainActivity.this,
+                            SettingsActivity.class
+                    );
 
             startActivity(intent);
         });
